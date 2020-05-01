@@ -1,14 +1,18 @@
 const express = require("express");
 const morgan = require("morgan");
+const wikiRouter = require("./routes/wiki.js");
+// const user = require("./routes/user.js");
 const { db, Page, User } = require("./models");
 
 const app = express();
 
+app.use("/wiki", wikiRouter);
 app.use(express.static("public"));
 app.use(express.json({ extended: false }));
 
 app.get("/", (req, res) => {
   res.send("hello world");
+  res.redirect("/wiki");
 });
 
 const init = async () => {
@@ -30,5 +34,5 @@ db.authenticate().then(() => {
 });
 
 app.listen(PORT, () => {
-  console.log("It's bitching");
+  console.log("I apologize for my actions");
 });
